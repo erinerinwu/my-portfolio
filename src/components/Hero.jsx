@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
-import erin from "../assets/erin.jpg";
+import erin from "./erin.jpg";
 
 import { styles } from "../styles";
 
