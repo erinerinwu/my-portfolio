@@ -1,48 +1,67 @@
+import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
-import { ComputersCanvas } from "./canvas";
 
 const Hero = () => {
+  const fullText = " I'm a Math and Computer Science major at UCLA. I love building things!!! Whether it's crafting algorithms or developing web applications, I thrive on challenging myself and pushing the boundaries of what's possible. When I'm not coding, you might find me exploring the latest in AI, attending hackathons, or experimenting with new tech tools.";
+  const [text, setText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    let index = 0;
+    let timer;
+    
+    if (text === '') {  // Only start typing if text is empty
+      setIsTyping(true);
+      timer = setInterval(() => {
+        setText((prev) => prev + fullText.charAt(index));
+        index++;
+        if (index === fullText.length) {
+          clearInterval(timer);
+          setIsTyping(false);
+        }
+      }, 20); // Adjust this value for faster or slower typing
+    }
+
+    return () => {
+      clearInterval(timer);  // Clear the interval on component unmount
+    };
+  }, []);
+
   return (
     <section className={`relative w-full h-screen mx-auto`}>
-      <div
-        className={`absolute inset-0 top-[120px]  max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
-      >
-        <div className='flex flex-col justify-center items-center mt-5'>
-          <div className='w-5 h-5 rounded-full bg-[#915EFF]' />
-          <div className='w-1 sm:h-80 h-40 violet-gradient' />
-        </div>
-
-        <div>
-          <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className='text-[#915EFF]'>Adrian</span>
+      <div className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start justify-center gap-10`}>
+        {/* Text container */}
+        <div className="flex-1 min-w-0 overflow-visible">
+        <br />
+        <br />
+        <br /><h1 className={`${styles.heroHeadText} text-white`}>
+            <span className='text-[#f4f0fc]'>Hi there!</span>
+            <br />
+            <span className='text-[#f4f0fc]'>I'm </span>
+            <span className='text-[#3d0785]'>Erin Wu</span>
           </h1>
-          <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop 3D visuals, user <br className='sm:block hidden' />
-            interfaces and web applications
-          </p>
+          <br />
+       
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="overflow-visible"
+          >
+            <p className="text-xl font-mono text-[#000000] mt-2">
+              {text}
+              <span className="typing-cursor">{isTyping ? '|' : ''}</span>
+              <br className='sm:block hidden' />
+            </p>
+          </motion.div>
         </div>
-      </div>
 
-      <ComputersCanvas />
-
-      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
-        <a href='#about'>
-          <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
-            <motion.div
-              animate={{
-                y: [0, 24, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-              className='w-3 h-3 rounded-full bg-secondary mb-1'
-            />
-          </div>
-        </a>
+        {/* Image container */}
+        <div className="flex-1 ml-32">
+          <img src="/src/assets/erin.jpg" alt="Erin Wu" className="w-28 sm:w-64 md:w-96 rounded-3xl  " />
+        </div>
       </div>
     </section>
   );
