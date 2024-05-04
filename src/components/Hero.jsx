@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
-import mypic from "../assets/erin.jpg";
+import erin from "../assets/erin.jpg";
 
 import { styles } from "../styles";
 
@@ -61,7 +61,7 @@ const Hero = () => {
 
         {/* Image container */}
         <div className="flex-1 ml-32">
-          <img src= {mypic} alt="Erin Wu" className="w-28 sm:w-64 md:w-96 rounded-3xl  " />
+          <img src= {erin} alt="Erin Wu" className="w-28 sm:w-64 md:w-96 rounded-3xl  " />
         </div>
       </div>
     </section>
